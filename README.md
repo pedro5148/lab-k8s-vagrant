@@ -33,7 +33,9 @@ end
 O script para o *control-plane* ė diferente do *worker*, por isso a condicional `if` executa o script correto de cada.
 
 ## Importante
-Para que o *cluster* funcione corretamente, adicionei o trecho abaixo para sempre definir o *gateway* do *cluster*, com o mesmo *gateway* do host, pois o Vagrant define a rota principal como sendo a propria rede (*10.0.2.2*), e por isso ao executar o comando `kubeadm init`  o cluster não inicia corretamente.
+1. Reinicie o cluster para efetivar as mudanças `$vagrant reload`
+ 
+2. Para que o *cluster* funcione corretamente, adicionei o trecho abaixo para sempre definir o *gateway* do *cluster*, com o mesmo *gateway* do host, pois o Vagrant define a rota principal como sendo a propria rede (*10.0.2.2*), e por isso ao executar o comando `kubeadm init`  o cluster não inicia corretamente.
 ```Ruby
 config.vm.provision "shell",
 	run: "always",
