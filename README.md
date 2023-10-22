@@ -3,9 +3,9 @@
 Ajustei esses script do Vagrant para criar um cluster local do Kubernetes no VirtualBox para fins educacionais com base no projeto do Caio Delgado [blog-vagrant-101](https://github.com/caiodelgadonew/blog-vagrant-101)
 
 ## Dependências
-1 - VirtualBox (versão usada 6.1.46r158378)
+1 - VirtualBox (6.1.38_Ubuntur153438)
 
-2 - Vagrant (versão usada 2.2.19)
+2 - Vagrant (versão usada 2.4.0)
 
 ## Iniciando
 Com todos os arquivos na mesma pasta, execute o comando `$ vagrant up`
@@ -39,4 +39,4 @@ O script para o *control-plane* ė diferente do *worker*, por isso a condicional
 ```Ruby
 config.vm.provision "shell",
 	run: "always",
-inline: "ip route add default via #$DEFAULT_GW"
+inline: "ip route add default via #$DEFAULT_GW" 

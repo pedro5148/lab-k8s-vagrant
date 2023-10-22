@@ -14,9 +14,10 @@ Vagrant.configure("2") do |config|
   config.vm.post_up_message = "Setup Descomplicando Kubernetes!!"
   config.vm.box_check_update = false
   
-  if Vagrant.has_plugin?("vagrant-timezone") 
-    config.timezone.value = "America/Sao_Paulo" 
- end
+  if Vagrant.has_plugin?("vagrant-timezone") || Vagrant.has_plugin?("vagrant-vbguest")
+    config.timezone.value = "America/Sao_Paulo"
+    config.vbguest.auto_update = false
+end
 
   machines.each do |name, conf|
     config.vm.define "#{name}" do |machine| 
@@ -31,9 +32,14 @@ Vagrant.configure("2") do |config|
       end
 
       if "#{name}" == "master"
+        config.vm.provision "shell", inline: <<-SCRIPT
+           echo "sudo su -" >> .bashrc
+        SCRIPT
+        # Descomente essa linha caso queira uma pasta 'data/files' dentro do lab
+        #config.vm.synced_folder "data/files", "/data_host", mount_options: ["dmode=744","fmode=644","uid=1000","gid=1000"], type: "rsync"
         machine.vm.provision "shell", path: "data/master.sh"
       else
-        machine.vm.provision "shell", path: "data/worker.sh"
+        machine.vm.provision "shell", path: "data/worker.sh" 
       end
 
     end

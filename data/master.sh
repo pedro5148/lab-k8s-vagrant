@@ -53,4 +53,13 @@ mkdir -p $HOME/.kube && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && c
 echo -e "\n#### --> Instalando Weave net"
 kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 
+echo -e "\n#### --> Instalando o alias 'k' e o autocompletar"
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+
+
+echo -e "\n#### --> Para adicionar os nodes no cluster, usar o token abaixo:"
+kubeadm token create --print-join-command
+
 echo -e "\nFim do Script Master...\n"
